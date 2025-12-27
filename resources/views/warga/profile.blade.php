@@ -10,18 +10,18 @@
 
     <style>
         :root{
-            --bg:#020617;
-            --card:#1e293b;
-            --primary:#22c55e;
-            --accent:#38bdf8;
-            --text:#e5e7eb;
-            --muted:#94a3b8;
+            --bg:#f1f5f9;
+            --card:#ffffff;
+            --primary:#2563eb;
+            --accent:#3b82f6;
+            --text:#0f172a;
+            --muted:#64748b;
         }
         *{box-sizing:border-box}
         body{
             margin:0;
             font-family:'Inter',sans-serif;
-            background:linear-gradient(135deg,#020617,#0f172a);
+            background:var(--bg);
             color:var(--text);
             min-height:100vh;
             display:flex;
@@ -34,8 +34,8 @@
             max-width:520px;
             background:var(--card);
             padding:35px 30px;
-            border-radius:20px;
-            box-shadow:0 20px 50px rgba(0,0,0,.6);
+            border-radius:18px;
+            box-shadow:0 10px 25px rgba(0,0,0,.1);
         }
         h2{
             margin-top:0;
@@ -61,6 +61,7 @@
             object-fit:cover;
             border:4px solid var(--primary);
             margin-bottom:10px;
+            background:#e5e7eb;
         }
         .photo-box label{
             font-size:.9rem;
@@ -82,14 +83,15 @@
             width:100%;
             padding:12px 14px;
             border-radius:10px;
-            border:1px solid #334155;
-            background:#020617;
+            border:1px solid #cbd5f5;
+            background:#f8fafc;
             color:var(--text);
             outline:none;
             font-size:.95rem;
         }
         input:focus,select:focus{
             border-color:var(--accent);
+            background:#fff;
         }
 
         .actions{
@@ -107,18 +109,18 @@
             transition:.3s;
         }
         .btn-save{
-            background:linear-gradient(135deg,#22c55e,#4ade80);
-            color:#022c22;
+            background:linear-gradient(135deg,#2563eb,#3b82f6);
+            color:#fff;
         }
         .btn-save:hover{opacity:.9;}
         .btn-back{
-            background:#334155;
-            color:var(--text);
+            background:#e2e8f0;
+            color:#0f172a;
             text-align:center;
             text-decoration:none;
             line-height:40px;
         }
-        .btn-back:hover{background:#475569;}
+        .btn-back:hover{background:#cbd5e1;}
     </style>
 </head>
 <body>
@@ -132,7 +134,9 @@
 
         <div class="photo-box">
             <img id="preview"
-                 src="{{ auth()->user()->profile_photo_url }}"
+                 src="{{ auth()->user()->profile_photo_path
+                        ? asset('storage/' . auth()->user()->profile_photo_path)
+                        : '' }}"
                  alt="Foto Profil">
             <label for="photo">
                 <i class="fas fa-camera"></i> Ganti Foto Profil
@@ -147,16 +151,21 @@
 
         <div class="form-group">
             <label>Jenis Kelamin</label>
-            <select name="gender">
+            <select name="jenis_kelamin">
                 <option value="">- Pilih -</option>
-                <option value="Laki-laki" {{ auth()->user()->gender=='Laki-laki'?'selected':'' }}>Laki-laki</option>
-                <option value="Perempuan" {{ auth()->user()->gender=='Perempuan'?'selected':'' }}>Perempuan</option>
+                <option value="Laki-laki" {{ auth()->user()->jenis_kelamin=='Laki-laki'?'selected':'' }}>Laki-laki</option>
+                <option value="Perempuan" {{ auth()->user()->jenis_kelamin=='Perempuan'?'selected':'' }}>Perempuan</option>
             </select>
         </div>
 
         <div class="form-group">
+            <label>Blok</label>
+            <input type="text" name="blok" value="{{ auth()->user()->blok }}">
+        </div>
+
+        <div class="form-group">
             <label>No. Telepon</label>
-            <input type="text" name="phone" value="{{ auth()->user()->phone }}">
+            <input type="text" name="no_hp" value="{{ auth()->user()->no_hp }}">
         </div>
 
         <div class="actions">
