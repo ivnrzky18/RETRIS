@@ -1,48 +1,171 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - RETRIS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <x-validation-errors class="mb-4" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-        @session('status')
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ $value }}
-            </div>
-        @endsession
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0D47A1, #081F4D);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
+        .login-container {
+            background: #fff;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.3);
+            padding: 40px 35px;
+        }
 
-            <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            </div>
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-            </div>
+        .login-header h2 {
+            color: #0D47A1;
+            margin: 10px 0;
+        }
 
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-checkbox id="remember_me" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
+        .login-header i {
+            font-size: 3rem;
+            color: #2ECC71;
+        }
 
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-                <x-button class="ms-4">
-                    {{ __('Log in') }}
-                </x-button>
-            </div>
-        </form>
-    </x-authentication-card>
-</x-guest-layout>
+        .form-group label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            outline: none;
+            font-size: .95rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #2ECC71;
+        }
+
+        .btn-login {
+            width: 100%;
+            background: #2ECC71;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: .3s;
+        }
+
+        .btn-login:hover {
+            background: #27AE60;
+        }
+
+        .extra-links {
+            text-align: center;
+            margin-top: 20px;
+            font-size: .9rem;
+        }
+
+        .extra-links a {
+            color: #0D47A1;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .extra-links a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: #E74C3C;
+            font-size: .85rem;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <div class="login-header">
+        <i class="fas fa-recycle"></i>
+        <h2>Login RETRIS</h2>
+        <p>Masuk sebagai Warga atau Petugas</p>
+    </div>
+
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+
+        <!-- Email -->
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus>
+            @error('email')
+                <div class="error">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            @error('password')
+                <div class="error">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <!-- Role -->
+        <div class="form-group">
+            <label for="role">Login Sebagai</label>
+            <select name="role" id="role" required>
+                <option value="">-- Pilih Role --</option>
+                <option value="warga">Warga</option>
+                <option value="petugas">Petugas</option>
+            </select>
+            @error('role')
+                <div class="error">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <!-- Button -->
+        <button type="submit" class="btn-login">
+            <i class="fas fa-sign-in-alt"></i> Masuk
+        </button>
+    </form>
+
+    <div class="extra-links">
+        <p>Belum punya akun?
+            <a href="{{ url('/register/choose') }}">Daftar di sini</a>
+        </p>
+        <p>
+            <a href="{{ url('/') }}">← Kembali ke Beranda</a>
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

@@ -113,50 +113,7 @@
                         </a>
                     </li>
                     
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="menuTransaksi" data-bs-toggle="dropdown">
-                            <i class="fas fa-exchange-alt me-1"></i> Transaksi & Log
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="menuTransaksi">
-                            {{-- MAPPING: Pendaftaran Pasien -> Reservasi / Pencatatan Masuk --}}
-                            <li><a class="dropdown-item" href="{{ route('pendaftaranpasien.index') }}">
-                                <i class="fas fa-user-check me-2"></i> Pendaftaran Penyewa
-                            </a></li>
-                            {{-- MAPPING: Pembayaran -> Pembayaran Sewa --}}
-                            <li><a class="dropdown-item" href="{{ route('pembayaran_sewa.index') }}">
-                                <i class="fas fa-money-bill-wave me-2"></i> Pembayaran Sewa
-                            </a></li>
-                            {{-- MAPPING: Rekam Medis -> Laporan Kerusakan --}}
-                            <li><a class="dropdown-item" href="{{ route('rekammedis.index') }}">
-                                <i class="fas fa-tools me-2"></i> Laporan Kerusakan
-                            </a></li>
-                            {{-- MAPPING: Pemeriksaan Dokter/Lab -> Biaya Tambahan/Inspeksi --}}
-                            <li><a class="dropdown-item" href="{{ route('pemeriksaandokter.index') }}">
-                                <i class="fas fa-file-invoice me-2"></i> Biaya Tambahan
-                            </a></li>
-                            
-                        </ul>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="menuMaster" data-bs-toggle="dropdown">
-                            <i class="fas fa-database me-1"></i> Data Utama
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="menuMaster">
-                            {{-- MAPPING: Dokter -> Penyewa --}}
-                            <li><a class="dropdown-item" href="{{ route('penyewa.index') }}">
-                                <i class="fas fa-user-friends me-2"></i> Daftar Penyewa
-                            </a></li>
-                            {{-- MAPPING: Pasien -> Kamar --}}
-                            <li><a class="dropdown-item" href="{{ route('kamar.index') }}">
-                                <i class="fas fa-door-open me-2"></i> Daftar Kamar
-                            </a></li>
-                            {{-- MAPPING: Poli -> Tipe Kamar --}}
-                            <li><a class="dropdown-item" href="{{ route('poli.index') }}">
-                                <i class="fas fa-tags me-2"></i> Tipe Kamar
-                            </a></li>
-                        </ul>
-                    </li>
+                   </li>
                     
                 </ul>
 

@@ -3,43 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Manajemen Kos - Griya Amanah</title>
+    <title>RETRIS - Retribusi Sampah RT</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
         :root {
-            /* Tema Warna Baru: Biru Tua & Oranye (Properti/Keuangan) */
-            --primary-color: #0D47A1; /* Biru Tua */
-            --accent-color: #FFA000; /* Oranye Kuning */
-            --light-bg: #F8F9FA;
-            --dark-text: #333333;
-            --light-text: #FFFFFF;
-            --danger-color: #E74C3C;
+            --primary: #0D47A1;
+            --accent: #2ECC71;
+            --light: #F4F6F8;
+            --dark: #333;
         }
 
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: var(--light-bg);
+            background: var(--light);
             margin: 0;
-            padding: 0;
-            color: var(--dark-text);
+            color: var(--dark);
         }
 
-        /* Header */
+        /* ===== HEADER ===== */
         .main-header {
-            background-color: var(--light-text);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
             padding: 15px 0;
         }
         .navbar {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: auto;
-            padding: 0 20px; /* Tambahkan padding agar tidak mentok */
+        }
+        .logo h2 {
+            margin: 0;
+            color: var(--primary);
         }
         .nav-links {
             list-style: none;
@@ -49,195 +49,181 @@
         }
         .nav-links li {
             margin-left: 20px;
-            position: relative;
         }
         .nav-links a {
-            color: var(--primary-color);
             text-decoration: none;
+            color: var(--primary);
             font-weight: 500;
         }
         .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            background: #fff;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border-radius: 5px;
-            top: 100%;
-            left: 0;
-            min-width: 150px; /* Tambah lebar agar tombol logout muat */
-        }
-        .dropdown-menu a {
-            display: block;
-            padding: 8px 15px;
-            color: var(--dark-text);
-        }
-        .dropdown-menu a:hover {
-            background-color: #eee;
-        }
-        .dropdown:hover .dropdown-menu {
-            display: block;
+            color: var(--accent);
         }
 
-        /* Hero Section */
+        /* ===== HERO ===== */
         .hero-section {
-            position: relative;
-            /* Ubah URL background (asumsi Anda memiliki gambar yang lebih sesuai) */
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-                        url("{{ asset('img/kosan.png') }}") center/cover no-repeat; 
+            background: linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),
+                        url("{{ asset('img/sampah.png') }}") center/cover no-repeat;
             color: #fff;
             text-align: center;
             padding: 120px 20px;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
         }
         .hero-section h1 {
             font-size: 3rem;
-            font-weight: bold;
+            margin-bottom: 15px;
         }
         .hero-section p {
             font-size: 1.2rem;
+            margin-bottom: 30px;
         }
-        /* Buttons - Konsisten dengan tema warna baru */
+        .hero-image {
+            margin: 30px auto;
+            max-width: 420px;
+        }
+        .hero-image img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,.4);
+        }
         .btn {
             display: inline-block;
-            padding: 12px 25px;
-            border-radius: 5px;
+            padding: 12px 28px;
+            border-radius: 6px;
             font-weight: bold;
-            border: none;
-            cursor: pointer;
-            text-decoration: none; /* Penting untuk tag <a> */
-            transition: background-color 0.3s;
+            text-decoration: none;
+            margin: 8px;
         }
         .btn-primary {
-            background: var(--accent-color);
-            color: var(--light-text);
+            background: var(--accent);
+            color: #fff;
         }
         .btn-primary:hover {
-            background-color: #FFB300; /* Oranye lebih terang */
+            background: #27AE60;
         }
         .btn-secondary {
-            background: var(--primary-color);
-            color: var(--light-text);
+            background: var(--primary);
+            color: #fff;
         }
         .btn-secondary:hover {
-            background-color: #1565C0; /* Biru sedikit lebih terang */
-        }
-        .btn-danger {
-            background: var(--danger-color);
-            color: #fff;
+            background: #1565C0;
         }
 
-        /* Foto Adila di hero (Ganti menjadi Ilustrasi/Logo Kos) */
-        .foto-adila {
+        /* ===== SECTION ===== */
+        section {
+            padding: 70px 20px;
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        .card {
+            background: #fff;
+            padding: 30px 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,.1);
+            transition: .3s;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+        }
+        .card i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        /* ===== FOOTER ===== */
+        .retris-footer {
+            background: linear-gradient(135deg, #0D2C6C, #081F4D);
+            color: #fff;
+            padding: 70px 20px 25px;
+            margin-top: 80px;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 40px;
+        }
+        .footer-col h3 {
+            margin-bottom: 18px;
+            position: relative;
+        }
+        .footer-col h3::after {
+            content: "";
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
             position: absolute;
-            bottom: 30px;
-            right: 30px;
-            width: 150px; /* Diperkecil */
-            height: 150px;
-            border-radius: 50%;
-            border: 4px solid #fff3e0; /* Krem lembut */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            object-fit: cover;
-            background-color: #fff;
-            z-index: 10;
-            /* Hapus animasi untuk kesederhanaan */
-            /* animation: fadeIn 1.2s ease-in-out; */
+            left: 0;
+            bottom: -8px;
+            border-radius: 5px;
         }
-
-        /* Services */
-        .services-overview {
-            padding: 80px 20px;
+        .footer-col p, .footer-col a {
+            color: #ddd;
+            font-size: .95rem;
+            line-height: 1.7;
+            text-decoration: none;
+        }
+        .footer-col a:hover {
+            color: var(--accent);
+        }
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-col ul li {
+            margin-bottom: 8px;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,.2);
+            margin-top: 40px;
+            padding-top: 15px;
             text-align: center;
-            max-width: 1200px;
-            margin: auto;
-        }
-        .service-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-            gap: 20px;
-        }
-        .service-card {
-            background: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s;
-        }
-        .service-card:hover { transform: translateY(-5px); }
-        .service-card .icon {
-            font-size: 3em;
-            color: var(--accent-color);
-        }
-
-        /* Why Choose Us */
-        .why-choose-us {
-            padding: 80px 20px;
-            background: var(--light-bg);
-            text-align: center;
-            max-width: 1200px;
-            margin: auto;
-        }
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-            gap: 20px;
-        }
-        .feature-item {
-            background: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        .feature-item i {
-            font-size: 2.5em;
-            color: var(--accent-color);
-            margin-bottom: 10px;
-        }
-
-        /* Footer */
-        .main-footer {
-            background: var(--primary-color);
-            color: #fff;
-            padding: 40px 20px;
-            text-align: center;
+            font-size: .9rem;
+            color: #ccc;
         }
     </style>
 </head>
 <body>
+
 <header class="main-header">
     <nav class="navbar">
         <div class="logo">
-            <h2 style="color: var(--primary-color)"><i class="fas fa-house-chimney-crack"></i> Kos Manager Pro</h2>
+            <h2><i class="fas fa-recycle"></i> RETRIS</h2>
         </div>
         <ul class="nav-links">
             <li><a href="{{ url('/') }}">Beranda</a></li>
-            <li><a href="{{ url('/kamar') }}">Daftar Kamar</a></li>
-            <li><a href="{{ url('/fitur') }}">Fitur Kami</a></li>
-            <li><a href="{{ url('/tentang') }}">Tentang Kami</a></li>
-            <li><a href="{{ url('/kontak') }}">Kontak</a></li>
+            <li><a href="#fitur">Fitur</a></li>
+            <li><a href="#tentang">Tentang</a></li>
+            <li><a href="#kontak">Kontak</a></li>
 
-            {{-- Autentikasi Laravel (TETAP SAMA) --}}
             @guest
                 <li><a href="{{ route('login') }}">Login</a></li>
-                @if(Route::has('register'))
-                    <li><a href="{{ route('register') }}">Register</a></li>
-                @endif
+                <li><a href="{{ url('/register/choose') }}">Register</a></li>
+                <li>
+                    <a href="{{ url('/admin/login') }}" style="color:#E67E22;font-weight:bold;">
+                        Login Admin
+                    </a>
+                </li>
             @else
-                <li class="dropdown">
-                    <a href="#">{{ Auth::user()->name }} <i class="fas fa-chevron-down"></i></a>
-                    <div class="dropdown-menu">
-                        <a href="{{ url('/dashboard') }}">Dashboard</a>
-                        <a href="{{ route('logout') }}" 
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            Logout
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none;">
-                            @csrf
-                        </form>
-                    </div>
+                <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+                <li>
+                    <a href="{{ route('logout') }}"
+                       onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                        Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none;">
+                        @csrf
+                    </form>
                 </li>
             @endguest
         </ul>
@@ -246,61 +232,78 @@
 
 <main>
     <section class="hero-section">
-        <img src="{{ asset('img/kosan.png') }}" alt="Ilustrasi Kos" class="foto-adila">
-        
-        <h1>Kelola Kos-kosan Anda Tanpa Ribet</h1>
-        <p>Sistem terpadu untuk Kamar, Penyewa, dan Pembayaran Sewa. Lebih efisien dan akurat.</p>
-        <div class="hero-buttons">
-            <a href="{{ route('register') }}" class="btn btn-primary"><i class="fas fa-user-plus"></i> Mulai Coba Gratis</a>
-            <a href="{{ url('/fitur') }}" class="btn btn-secondary"><i class="fas fa-magnifying-glass"></i> Jelajahi Fitur</a>
-        </div>
+        <h1>Kelola Retribusi Sampah Jadi Lebih Mudah</h1>
+        <p>Sistem digital untuk pembayaran online dan konfirmasi angkut sampah di lingkungan RT Anda.</p>
+
+
+        <a href="{{ url('/register/choose') }}" class="btn btn-primary">
+            <i class="fas fa-user-plus"></i> Daftar Sekarang
+        </a>
+        <a href="#fitur" class="btn btn-secondary">
+            <i class="fas fa-info-circle"></i> Lihat Fitur
+        </a>
     </section>
 
-    <section class="services-overview">
-        <h2>Fokus Kami Untuk Bisnis Kos Anda</h2>
-        <div class="service-cards">
-            <div class="service-card">
-                <i class="fas fa-house-user icon"></i>
-                <h3>Manajemen Kamar & Penyewa</h3>
-                <p>Data Kamar dan informasi Penyewa tersusun rapi dan mudah diakses.</p>
+    <section id="fitur">
+        <h2>Fitur Utama RETRIS</h2>
+        <div class="cards">
+            <div class="card">
+                <i class="fas fa-wallet"></i>
+                <h3>Top Up Saldo Online</h3>
+                <p>Warga dapat mengisi saldo retribusi secara online tanpa pungutan langsung.</p>
             </div>
-            <div class="service-card">
-                <i class="fas fa-cash-register icon"></i>
-                <h3>Pelacakan Pembayaran Sewa</h3>
-                <p>Catat dan lacak pembayaran sewa, otomatisasi pengingat jatuh tempo.</p>
+            <div class="card">
+                <i class="fas fa-truck"></i>
+                <h3>Konfirmasi Angkut</h3>
+                <p>Petugas mengonfirmasi rumah yang sampahnya telah diangkut secara real-time.</p>
             </div>
-            <div class="service-card">
-                <i class="fas fa-screwdriver-wrench icon"></i>
-                <h3>Log Perawatan & Kerusakan</h3>
-                <p>Pencatatan kerusakan kamar, monitoring perbaikan, dan biaya maintenance.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="why-choose-us">
-        <h2>Mengapa Kos Manager Pro?</h2>
-        <div class="features-grid">
-            <div class="feature-item">
+            <div class="card">
                 <i class="fas fa-chart-line"></i>
-                <h3>Laporan Keuangan Akurat</h3>
-                <p>Rekapitulasi pendapatan sewa dan biaya pengeluaran real-time.</p>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-mobile-alt"></i>
-                <h3>Akses Kapan Saja</h3>
-                <p>Pantau bisnis kos Anda dari mana saja, menggunakan perangkat apa pun.</p>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-shield-virus"></i>
-                <h3>Keamanan Data Terjamin</h3>
-                <p>Data properti dan penyewa Anda aman dengan sistem otentikasi terbaik.</p>
+                <h3>Monitoring RT</h3>
+                <p>RT dapat memantau data pembayaran dan pengangkutan dengan transparan.</p>
             </div>
         </div>
+    </section>
+
+    <section id="tentang">
+        <h2>Tentang RETRIS</h2>
+        <p>
+            RETRIS adalah sistem digital untuk membantu RT mengelola retribusi sampah
+            secara adil, transparan, dan berbasis data.
+        </p>
+    </section>
+
+    <section id="kontak">
+        <h2>Hubungi Kami</h2>
+        <p>Email: retris@rtbersih.id | Telp: 08xxxxxxxxxx</p>
     </section>
 </main>
 
-<footer class="main-footer">
-    <p>&copy; {{ date('Y') }} Kos Manager Pro - Solusi Manajemen Kos Terpercaya.</p>
+<footer class="retris-footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <h3>RETRIS</h3>
+            <p>Sistem Retribusi & Angkut Sampah berbasis digital untuk lingkungan RT.</p>
+        </div>
+        <div class="footer-col">
+            <h3>Navigasi</h3>
+            <ul>
+                <li><a href="{{ url('/') }}">Beranda</a></li>
+                <li><a href="#fitur">Fitur</a></li>
+                <li><a href="#tentang">Tentang</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>Kontak</h3>
+            <p>Pekanbaru, Riau</p>
+            <p>08xxxxxxxxxx</p>
+            <p>retris@rtbersih.id</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; {{ date('Y') }} RETRIS - Sistem Retribusi & Angkut Sampah RT
+    </div>
 </footer>
 
 </body>
